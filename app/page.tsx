@@ -4,6 +4,10 @@ import { urlForImage } from '@/sanity/lib/image'
 import { Image as SanityImage } from 'sanity'
 import ProductCard from './ProductCard'
 import Hero from '@/components/Hero'
+import Promotion from '@/components/Promotion'
+import CheckWhatWeHave from '@/components/CheckWhatWeHave'
+import Subscribe from '@/components/Subscribe'
+import Footer from '@/components/Footer'
 
 type Product = {
   _id: string,
@@ -46,12 +50,16 @@ export default async function Home() {
 
       <Hero />
     </main>
-      <div className='flex flex-wrap items-start justify-start gap-x-16 ml-[53px] mr-[53px]'>
-        {/* <h1>Products</h1> */}
+    <Promotion/>
+    <CheckWhatWeHave/>
+    <Subscribe/>
+    <Footer/>
+      {/* <div className='flex flex-wrap items-start justify-start gap-x-16 ml-[53px] mr-[53px]'>
+        <h1>Products</h1>
         {data.map(product => {
           return <ProductCard key={product._id} _id={product._id} image={product.image} price={product.price} title={product.title} />
         })}
-      </div>
+      </div> */}
     </>
   )
 }

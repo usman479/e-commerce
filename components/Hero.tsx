@@ -27,7 +27,6 @@ export default function Hero() {
                             <Image src={bustle} alt='logo' />
                             <Image src={instyle} alt='logo' />
                             <Image src={versace} alt='logo' />
-                       
                     </div>
                     {/* <button className='flex'>
                     <ShoppingCart/>
