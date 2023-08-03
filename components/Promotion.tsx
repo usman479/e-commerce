@@ -77,7 +77,7 @@ export default function Promotion() {
         // </WrapperMaxWidth>
 
         <WrapperMaxWidth>
-            <section className='w-full space-y-4'>
+            <section className='w-full space-y-4 mt-24'>
                 <h3 className='uppercase text-center text-blue-600 text-sm font-bold'>PROMOTIONS</h3>
                 <p className='text-center text-4xl font-bold'>Our Promotions Events</p>
                 <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
@@ -98,14 +98,14 @@ export default function Promotion() {
                     <div className='bg-orange-300 col-span-2 sm:col-span-1 row-span-2 space-y-4 flex flex-col justify-between'>
                         <div className='ml-[1.4rem] mt-4'>
                             <p>Flex Sweatshirt</p>
-                            <p ><span className='line-through'>$100.00</span> $75.00</p>
+                            <p className='font-semibold'><span className='line-through font-normal'>$100.00</span> $75.00</p>
                         </div>
                         <Image src={prom2} alt='promotion' className='self-center'/>
                     </div>
                     <div className='bg-gray-300 col-span-2 sm:col-span-1 row-span-2 space-y-4 flex flex-col justify-between'>
                         <div className='ml-[1.4rem] mt-4'>
                             <p >Flex Push Button Bomber</p>
-                            <p ><span className='line-through'>$225.00</span> $190.00</p>
+                            <p className='font-semibold'><span className='line-through font-normal'> $225.00</span> $190.00</p>
                         </div>
                         <Image src={prom3} alt='promotion'  className='self-center'/>
                     </div>

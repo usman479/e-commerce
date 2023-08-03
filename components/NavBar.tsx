@@ -78,8 +78,9 @@ export default function NavBar() {
                         </div>
                         <div className="hidden lg:block">
                             <div className="ROUTES ml-10 flex items-center space-x-4 ">
-                                {links.map(link => {
+                                {links.map((link,index) => {
                                     return (<Link
+                                        key={index}
                                         href={link.route}
                                         className=" hover:bg-gray-100 px-3 py-2 rounded-md text-base font-medium"
                                     >
@@ -171,9 +172,10 @@ export default function NavBar() {
                                     <Badge>{0}</Badge>
                                 </div>
                             </Link>
-                            {links.map(link => {
+                            {links.map((link,index) => {
                                 return (
                                     <Link
+                                        key={index}
                                         href={link.route}
                                         className="hover:bg-gray-100 block px-3 py-2 rounded-md text-base font-medium"
                                     >

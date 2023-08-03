@@ -46,14 +46,13 @@ export default async function Home() {
   console.log(data)
   return (
     <>
-    <main className="flex min-h-screen flex-col lg:items-center justify-between ">
+
 
       <Hero />
-    </main>
-    <Promotion/>
-    <CheckWhatWeHave/>
-    <Subscribe/>
-    <Footer/>
+      <Promotion />
+      <CheckWhatWeHave />
+      <Subscribe />
+      <Footer />
       {/* <div className='flex flex-wrap items-start justify-start gap-x-16 ml-[53px] mr-[53px]'>
         <h1>Products</h1>
         {data.map(product => {
