@@ -14,7 +14,7 @@ import ProductCard from '@/components/ProductCard';
 
 
 async function getProducts() {
-  const data = await client.fetch(`*[_type=="product" && category->name == 'Female'] {
+  const data = await client.fetch(`*[_type=="product"] {
     price, 
     _id,
     title,

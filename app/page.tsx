@@ -41,9 +41,17 @@ export const getProduct = async (): Promise<Product[]> => {
   return res;
 }
 
+// export const getTest = async () => {
+//   const check = await fetch('http://localhost:3000/api/testing');
+
+//   return check;
+// } 
+
 export default async function Home() {
   const data: Product[] = await getProduct();
-  console.log(data)
+  
+  // const check = await getTest();
+  // console.log('nigga:',await check.json())
   return (
     <>
 
@@ -52,7 +60,7 @@ export default async function Home() {
       <Promotion />
       <CheckWhatWeHave />
       <Subscribe />
-      <Footer />
+      
       {/* <div className='flex flex-wrap items-start justify-start gap-x-16 ml-[53px] mr-[53px]'>
         <h1>Products</h1>
         {data.map(product => {

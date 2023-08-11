@@ -11,8 +11,8 @@ export const product = {
             type: "string"
         },
         {
-            name: 'description',
-            title: "Description",
+            name: 'type',
+            title: "Type",
             type: "string"
         },
         {
