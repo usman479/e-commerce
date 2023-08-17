@@ -2,6 +2,11 @@ import NavBar from '@/components/NavBar'
 import './globals.css'
 import Footer from '@/components/Footer'
 import { Inter } from 'next/font/google'
+// import { store } from '@/redux/store';
+// import { Provider } from 'react-redux';
+import ReduxProvider from '@/redux/provider';
+import { Toaster } from 'react-hot-toast';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,15 +22,20 @@ export default function RootLayout({
 }) {
 
   return (
+    // <Provider store={store}>
     <html lang="en">
       <body className={` mt-28 ${inter.className}`}>
         {/* <h1>{process.env.NEXT_PUBLIC_SITE_URL}</h1> */}
-        <NavBar />
-        {/* <div className='mx-4 sm:mx-6 lg:mx-8'> */}
+        <ReduxProvider>
+          <Toaster />
+          <NavBar />
+          {/* <div className='mx-4 sm:mx-6 lg:mx-8'> */}
           {children}
-        {/* </div> */}
-        <Footer />
+          {/* </div> */}
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
+    // </Provider>
   )
 }

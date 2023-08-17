@@ -38,7 +38,7 @@ export default async function page() {
       <section className='grid grid-cols-1 justify-items-center  sm:grid-cols-3 md:grid-cols-4  xl:grid-cols-5 gap-x-8 gap-y-12 '>
         {/* <h1>ere</h1> */}
         {products.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard product={product} key={product._id}/>
         ))}
       </section>
     </WrapperMaxWidth>

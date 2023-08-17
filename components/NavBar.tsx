@@ -7,10 +7,24 @@ import Badge from './Badge'
 import { cn } from '@/lib/utils'
 import { Transition } from '@headlessui/react'
 import WrapperMaxWidth from './WrapperMaxWidth'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCartError, getCartStatus, getCart, selectCart } from '@/redux/features/cart/cartSlice'
+import { AppDispatch } from '@/redux/store'
 
 export default function NavBar() {
+    const dispatch = useDispatch<AppDispatch>();
+    const cart = useSelector(selectCart);
+    const cartStatus = useSelector(getCartStatus);
+    const error = useSelector(getCartError)
+    let noOfItems = 0;
 
-    // const [isOpen, setIsOpen] = useState(screen.width > 1023);
+    useEffect(() => {
+        if (cartStatus == "idle") {
+            console.log('here')
+            dispatch(getCart());
+        }
+    }, [cartStatus, dispatch]);
+
     const [isOpen, setIsOpen] = useState(false);
     const links = [
         { name: 'Male', route: '/male' },
@@ -19,7 +33,18 @@ export default function NavBar() {
         { name: 'All Products', route: '/all_products' },
     ]
 
+    if (cartStatus === 'loading') {
+        console.log('loafing')
+    } else if (cartStatus === 'succeeded') {
+        console.log(cart)
+        cart.forEach(item => {
+            noOfItems += item.quantity;
+        })
+    } else if (cartStatus === 'failed') {
+        console.log(error)
+    }
 
+    // return <p>nigga</p>
     return (
         // <nav className={cn(`flex duration-200 ease-in-out flex-col justify-center space-y-6 lg:space-y-0 lg:flex-row w-full lg:justify-around items-center bg-red-100 absolute lg:static h-screen lg:h-24 z-10`,{
         //     'h-screen':isOpen,
@@ -78,7 +103,7 @@ export default function NavBar() {
                         </div>
                         <div className="hidden lg:block">
                             <div className="ROUTES ml-10 flex items-center space-x-4 ">
-                                {links.map((link,index) => {
+                                {links.map((link, index) => {
                                     return (<Link
                                         key={index}
                                         href={link.route}
@@ -93,12 +118,14 @@ export default function NavBar() {
                                     </svg>
                                     <input type="text" placeholder='What are you looking for' className='px-2 text-sm' />
                                 </div>
-                                <div className=' CART bg-gray-200 rounded-full w-12 h-12 flex justify-center items-center relative'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                    </svg>
-                                    <Badge>{0}</Badge>
-                                </div>
+                                <Link href={'/cart'}>
+                                    <div className=' CART bg-gray-200 rounded-full w-12 h-12 flex justify-center items-center relative'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                        <Badge>{noOfItems}</Badge>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -163,16 +190,16 @@ export default function NavBar() {
                         <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                             <Link
                                 href={'/cart'}
-                                className="hover:bg-gray-700  block px-3 py-2 rounded-md text-base font-medium"
+                                className="hover:bg-gray-100  block px-3 py-2 rounded-md text-base font-medium"
                             >
                                 <div className=' CART bg-gray-200 rounded-full w-12 h-12 flex justify-center items-center relative '>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                     </svg>
-                                    <Badge>{0}</Badge>
+                                    <Badge>{noOfItems}</Badge>
                                 </div>
                             </Link>
-                            {links.map((link,index) => {
+                            {links.map((link, index) => {
                                 return (
                                     <Link
                                         key={index}
