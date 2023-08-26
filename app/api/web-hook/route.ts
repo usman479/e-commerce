@@ -19,7 +19,7 @@
 
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret = "whsec_f21b6bd02841c64cc3897659b50758487faf348279ce6ba77ceab663c8c18885";
+const endpointSecret = process.env.WEBHOOK_SECRET;
 
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '../stripe-session/route'
