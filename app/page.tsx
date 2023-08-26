@@ -8,6 +8,7 @@ import Promotion from '@/components/Promotion'
 import CheckWhatWeHave from '@/components/CheckWhatWeHave'
 import Subscribe from '@/components/Subscribe'
 import Footer from '@/components/Footer'
+import { cookies } from 'next/headers'
 
 type Product = {
   _id: string,
@@ -47,9 +48,28 @@ export const getProduct = async (): Promise<Product[]> => {
 //   return check;
 // } 
 
-export default async function Home() {
-  const data: Product[] = await getProduct();
-  
+interface ISearchParams {
+  success: string
+}
+
+async function clearCookie() {
+
+  console.log(process.env.NEXT_PUBLIC_SITE_URL)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}api/clear-cookie`,{
+    cache: 'no-store'
+  });
+
+  return true;
+}
+
+export default async function Home({ searchParams }: { searchParams: ISearchParams  | undefined }) {
+  // const data: Product[] = await getProduct();
+  // console.log(searchParams)
+  let param:string|undefined;
+  if(searchParams?.success){
+    param = searchParams.success;
+  }
+
   // const check = await getTest();
   // console.log('nigga:',await check.json())
   return (
@@ -58,9 +78,9 @@ export default async function Home() {
 
       <Hero />
       <Promotion />
-      <CheckWhatWeHave />
+      <CheckWhatWeHave searchParam={param} />
       <Subscribe />
-      
+
       {/* <div className='flex flex-wrap items-start justify-start gap-x-16 ml-[53px] mr-[53px]'>
         <h1>Products</h1>
         {data.map(product => {

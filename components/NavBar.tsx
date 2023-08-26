@@ -10,12 +10,15 @@ import WrapperMaxWidth from './WrapperMaxWidth'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCartError, getCartStatus, getCart, selectCart } from '@/redux/features/cart/cartSlice'
 import { AppDispatch } from '@/redux/store'
+import CartSideBar from './CartSideBar'
 
 export default function NavBar() {
     const dispatch = useDispatch<AppDispatch>();
     const cart = useSelector(selectCart);
     const cartStatus = useSelector(getCartStatus);
     const error = useSelector(getCartError)
+    // for cart
+    const [open, setOpen] = useState(false)
     let noOfItems = 0;
 
     useEffect(() => {
@@ -99,7 +102,9 @@ export default function NavBar() {
                                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                                     alt="Workflow"
                                 /> */}
-                            <Image src={logo} alt='dine market' className='h-8 w-auto' />
+                            <Link href='/'>
+                                <Image src={logo} alt='dine market' className='h-8 w-auto' />
+                            </Link>
                         </div>
                         <div className="hidden lg:block">
                             <div className="ROUTES ml-10 flex items-center space-x-4 ">
@@ -119,12 +124,13 @@ export default function NavBar() {
                                     <input type="text" placeholder='What are you looking for' className='px-2 text-sm' />
                                 </div>
                                 <Link href={'/cart'}>
-                                    <div className=' CART bg-gray-200 rounded-full w-12 h-12 flex justify-center items-center relative'>
+                                    <div  className=' CART bg-gray-200 rounded-full w-12 h-12 flex justify-center items-center relative'>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                         </svg>
                                         <Badge>{noOfItems}</Badge>
                                     </div>
+                                    {/* <CartSideBar setOpen={setOpen} open={open} /> */}
                                 </Link>
                             </div>
                         </div>
@@ -192,7 +198,7 @@ export default function NavBar() {
                                 href={'/cart'}
                                 className="hover:bg-gray-100  block px-3 py-2 rounded-md text-base font-medium"
                             >
-                                <div className=' CART bg-gray-200 rounded-full w-12 h-12 flex justify-center items-center relative '>
+                                <div  className=' CART bg-gray-200 rounded-full w-12 h-12 flex justify-center items-center relative '>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                     </svg>

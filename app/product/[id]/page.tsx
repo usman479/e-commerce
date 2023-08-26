@@ -19,9 +19,9 @@ const productPage = async ({ params: { id } }: { params: { id: string } }) => {
 
       <div className='flex flex-wrap justify-center gap-x-6 items-center'>
 
-        <Image src={urlForImage(product.image).url()} alt={product.title} height={600} width={400} className='' />
+        <Image src={urlForImage(product.image).url()} alt={product.title} height={600} width={400} className='flex-1' />
 
-        <div className='mt-16'>
+        <div className='mt-16 justify-items-start self-start flex-1'>
           <h1 className='text-3xl font-semibold'>{product.title}</h1>
           <h2 className='text-gray-500 text-lg'>Sweater</h2>
           <h3 className='font-semibold mt-4'>SELECT SIZE</h3>

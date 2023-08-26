@@ -5,6 +5,7 @@ type Product = {
     alt: string | null,
     type: string,
     image: SanityImage,
+    quantity?:number,
     category: {
       name: string
     }

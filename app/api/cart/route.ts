@@ -22,11 +22,14 @@ export const GET = async (request: NextRequest) => {
 
 export const POST = async (request: Request) => {
     const req = await request.json();
-    const uid = uuid();
+    
     const setCookies = cookies();
     const user_id = setCookies.get('user_id')?.value as string;
+    console.log('this user_id', user_id);
     if (!setCookies.get('user_id')) {
+        const uid = uuid();
         setCookies.set('user_id', uid);
+        console.log('this uid', uid);
     }
     try {
         const check = await db.select().from(cartTable).where(and(eq(cartTable.user_id, user_id), eq(cartTable.product_id, req.product_id)));
