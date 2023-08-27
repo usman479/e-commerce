@@ -43,7 +43,7 @@ interface ISearchParams {
 
 export default async function page({ searchParams }: { searchParams: ISearchParams | undefined }) {
   
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const currentPage = searchParams?.page ||  1;
   const offset = (Number(currentPage) - 1) * itemsPerPage;
   const { products, totalRecords } = await getProducts({ start: offset, end:Number(offset) + itemsPerPage });
@@ -57,7 +57,7 @@ export default async function page({ searchParams }: { searchParams: ISearchPara
 
   return (
     <WrapperMaxWidth>
-      <section className='grid grid-cols-1 justify-items-center  sm:grid-cols-3 md:grid-cols-4  xl:grid-cols-5 gap-x-8 gap-y-12 '>
+      <section className='grid grid-cols-1 justify-items-center  sm:grid-cols-3 md:grid-cols-4  xl:grid-cols-5 gap-x-8 gap-y-12 min-h-screen'>
         {/* <h1>ere</h1> */}
         {products.map((product) => (
           <ProductCard product={product} key={product._id} />
