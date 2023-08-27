@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     // console.log(request.headers.get('stripe-signature'))
     const sig = request.headers.get('stripe-signature') as string;
     const body = await request.text();
-    let event:Stripe.Event;
+    let event: Stripe.Event;
     try {
         event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
         console.log('weebhook verified')
@@ -50,39 +50,23 @@ export async function POST(request: NextRequest) {
     switch (event?.type) {
         case 'payment_intent.succeeded':
             const paymentIntentSucceeded = event.data.object;
-            
+
             // Then define and call a function to handle the event payment_intent.succeeded
             break;
         // ... handle other event types
         case "checkout.session.completed":
-            const paymentIntentSucceede:any = event.data.object
+            const paymentIntentSucceede: any = event.data.object
             const { line_items } = await stripe.checkout.sessions.retrieve(paymentIntentSucceede.id, {
                 expand: ["line_items"]
             })
-            // console.log('hush')
-            // console.log('EVENT OBJECT: ', paymentIntentSucceede)
-            // console.log('CUSTOMER EMAIL: ', paymentIntentSucceede.customer_details.email)
-            // console.log('ORDER AMOUNT: ', paymentIntentSucceede.amount_subtotal / 100)
-            // console.log('SHIPPING COST: ', paymentIntentSucceede.shipping_cost.amount_total / 100)
-            const cust:any = await stripe.customers.retrieve(paymentIntentSucceede.customer)
-            // console.log('cust: ', cust)
-            let user_id = cust.metadata.user_id;
-            // .then(customer => {
-            //     user_id = customer.metadata.user_id;
-            //     console.log('1st CUSTOMER USER ID: ', customer.metadata.user_id)
-            //     console.log('CART ', customer.metadata.cart)
-            // }).catch(err => { console.log(err.message) })
-            
-            let order_date = String(new Date(paymentIntentSucceede.created * 1000).toISOString());
-            // console.log('ORDER DATE: ', order_date)
-          
 
-            // console.log('ITEMS', line_items?.data.map(item => {
-            //     return {
-            //         name:item.description,
-            //         quantity:item.quantity
-            //     }
-            // }))
+            const cust: any = await stripe.customers.retrieve(paymentIntentSucceede.customer)
+
+            let user_id = cust.metadata.user_id;
+
+
+            let order_date = String(new Date(paymentIntentSucceede.created * 1000).toISOString());
+
             const product_ids: {
                 name: string,
                 product_id: string
@@ -94,9 +78,9 @@ export async function POST(request: NextRequest) {
                 order_date: new Date(order_date),
                 order_amount: Number((paymentIntentSucceede.amount_subtotal / 100)),
                 delivery_fee: Number(paymentIntentSucceede.shipping_cost.amount_total / 100),
-              }).returning();
+            }).returning();
 
-              const cart:any= line_items?.data.map(item => {
+            const cart: any = line_items?.data.map(item => {
                 const product = product_ids.filter(prod => prod.name === item.description);
                 return {
                     // name: item.description,
@@ -105,14 +89,7 @@ export async function POST(request: NextRequest) {
                     order_id: orderResponse[0].order_id
                 }
             })
-
-            // console.log('CARRR: ', cart);
-
-            // console.log('ORDER RESPONSE', orderResponse[0].order_id)
             const orderDetailsResponse = await db.insert(orderDetailsTable).values(cart).returning();
-
-
-            // console.log('order details repponse', orderDetailsResponse);
 
 
             break;

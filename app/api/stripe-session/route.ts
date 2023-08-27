@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ session })
         // res.redirect(303, session.url);
     } catch (err: any) {
-        console.log(err.message)
+        // console.log(err.message)
         return NextResponse.json(err.message)
         // res.status(err.statusCode || 500).json(err.message);
     }

@@ -13,14 +13,5 @@ export const GET = async (request: NextRequest) => {
         console.log("cleared")
     }
     return NextResponse.json("success")
-    // const uid = setCookies.get('user_id')?.value as string;
-    // console.log(uid)
-    // console.log('cook', uid)
-    // try {
-    //     const res = await db.select().from(cartTable).where(eq(cartTable.user_id, uid)).orderBy(cartTable.id);
-    //     return NextResponse.json(res);
-    // } catch (error) {
-    //     console.log(error);
-    //     return NextResponse.json({ message: 'someting went wrong' });
-    // }
+    
 }

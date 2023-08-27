@@ -4,13 +4,13 @@ import { sql } from '@vercel/postgres';
 
 
 export const cartTable = pgTable('cart', {
-    id: serial("id").primaryKey(),
+    id: serial("id"),
     user_id: varchar('user_id', {
         length: 255
-    }).notNull(),
+    }).primaryKey(),
     product_id: varchar('product_id', {
         length: 255
-    }).notNull(),
+    }).primaryKey(),
     quantity: integer('quantity').notNull(),
 
 })
